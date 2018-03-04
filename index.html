@@ -262,6 +262,248 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/04/MRS/配谐手册/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sundeli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Deli_Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/04/MRS/配谐手册/" itemprop="url">MRS-VI 	配谐查表</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-04T19:21:59+08:00">
+                2018-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MRS仪器/" itemprop="url" rel="index">
+                    <span itemprop="name">MRS仪器</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MRS仪器/数据手册/" itemprop="url" rel="index">
+                    <span itemprop="name">数据手册</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script></p>
+<hr>
+<h2 id="第一代核磁配谐箱体配谐查表"><a href="#第一代核磁配谐箱体配谐查表" class="headerlink" title="第一代核磁配谐箱体配谐查表"></a>第一代核磁配谐箱体配谐查表</h2><p>用于第一代配谐箱体查表用。箱体共有六只电容。通过改变上板铜片的连接方式改变串入电路<br>的电容大小，并以此使得整个接收回路LRC在2326hz频点的阻抗呈现纯阻性或近似阻性。对含<br>有电容和电感的正弦交流电路，当输入阻抗为纯电阻，亦即输入的电流和电压同相时，该电路<br>处于谐振状态。串联电路谐振时可能伴有电容和电感的超高电压。对给定的RLC串联电路只有在<br>正弦激励在某一特定频率时，电路才能处于谐振状态，这一特定频率称为谐振频率。</p>
+<p>当谐振频率以hz为单位时记为\(f_0\)，以rad/s为单位时记为\(\omega_0\)。由RLC电路的输入阻抗<br>\(z(jw) = R + j(wL - \frac{1}{wc}) \)</p>
+<p>可知如果</p>
+<p>\(wL\)=\(x=\frac{1}{wC}\)  </p>
+<p>则输入部分的阻抗虚部为0,即</p>
+<p>\(\omega_0=\frac{1}{\sqrt{LC}}\) </p>
+<p>换算成频率 </p>
+<p>\(f_0=\frac{\omega_0}{2\pi}=\frac{1}{2\pi\sqrt{LC}}\) </p>
+<p>代入\(f_0=2326\)，由于电容箱取值是离散的，所以仅给出部分取值。<br>第一代电容箱的取值范围为6-9.69</p>
+<pre><code>x = (6:0.01:9.69)*1.0e-06;
+z = 2326*2326*4*pi^2.*x;
+y = 1./((2326*2326)*4*(pi^2).*x)
+</code></pre><p>matlab代码如上  </p>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">电容（uF）</th>
+<th style="text-align:center">电感（uH）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">6.00</td>
+<td style="text-align:center">780.3</td>
+</tr>
+<tr>
+<td style="text-align:center">6.22</td>
+<td style="text-align:center">752.7</td>
+</tr>
+<tr>
+<td style="text-align:center">6.47</td>
+<td style="text-align:center">723.6</td>
+</tr>
+<tr>
+<td style="text-align:center">6.69</td>
+<td style="text-align:center">699.8</td>
+</tr>
+<tr>
+<td style="text-align:center">7.00</td>
+<td style="text-align:center">668.8</td>
+</tr>
+<tr>
+<td style="text-align:center">7.22</td>
+<td style="text-align:center">648.5</td>
+</tr>
+<tr>
+<td style="text-align:center">7.47</td>
+<td style="text-align:center">626.8</td>
+</tr>
+<tr>
+<td style="text-align:center">7.69</td>
+<td style="text-align:center">608.8</td>
+</tr>
+<tr>
+<td style="text-align:center">8.00</td>
+<td style="text-align:center">585.2</td>
+</tr>
+<tr>
+<td style="text-align:center">8.22</td>
+<td style="text-align:center">569.6</td>
+</tr>
+<tr>
+<td style="text-align:center">8.47</td>
+<td style="text-align:center">552.8</td>
+</tr>
+<tr>
+<td style="text-align:center">8.69</td>
+<td style="text-align:center">538.8</td>
+</tr>
+<tr>
+<td style="text-align:center">9.00</td>
+<td style="text-align:center">520.2</td>
+</tr>
+<tr>
+<td style="text-align:center">9.22</td>
+<td style="text-align:center">507.8</td>
+</tr>
+<tr>
+<td style="text-align:center">9.47</td>
+<td style="text-align:center">494.4</td>
+</tr>
+<tr>
+<td style="text-align:center">9.69</td>
+<td style="text-align:center">483.2</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/04/blogtest/20180304blogtest2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1200,7 +1442,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1211,7 +1453,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1222,7 +1464,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
