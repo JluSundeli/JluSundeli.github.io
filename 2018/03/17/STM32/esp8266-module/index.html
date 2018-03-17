@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="模块测试,stm32," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="esp8266 wifi-usart模块测试准备工作从我的不愿意透露姓名的朱金宝师兄手中借到了了这个模块。    等我有钱了我就买一个。QAQ。然后我又去原子的官网下到了这个的资料。感谢原子大大的无私付出。资料地址模块的简单介绍可以去万能的淘宝。淘宝地址接着你要有一个串口调试小助手。比如我用的原子大大这款。然后你要有一个usb转串口的小模块。淘宝一个就好。然后按照手册的教程一步一步的开始调试。首">
+<meta name="keywords" content="模块测试,stm32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="esp8266wifi模块调试手册">
+<meta property="og:url" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/index.html">
+<meta property="og:site_name" content="Deli_Blog">
+<meta property="og:description" content="esp8266 wifi-usart模块测试准备工作从我的不愿意透露姓名的朱金宝师兄手中借到了了这个模块。    等我有钱了我就买一个。QAQ。然后我又去原子的官网下到了这个的资料。感谢原子大大的无私付出。资料地址模块的简单介绍可以去万能的淘宝。淘宝地址接着你要有一个串口调试小助手。比如我用的原子大大这款。然后你要有一个usb转串口的小模块。淘宝一个就好。然后按照手册的教程一步一步的开始调试。首">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/esp8266.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/atk_xcom.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/usart.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/xcom1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/xcom3.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/AT.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/ATVW.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/ATRST.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/wifi.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/ip.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/wlcs.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/wlcsjm.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/host.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/connect.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/cip.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/SEND.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/sdl.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/hzn.jpg">
+<meta property="og:updated_time" content="2018-03-17T11:25:29.467Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="esp8266wifi模块调试手册">
+<meta name="twitter:description" content="esp8266 wifi-usart模块测试准备工作从我的不愿意透露姓名的朱金宝师兄手中借到了了这个模块。    等我有钱了我就买一个。QAQ。然后我又去原子的官网下到了这个的资料。感谢原子大大的无私付出。资料地址模块的简单介绍可以去万能的淘宝。淘宝地址接着你要有一个串口调试小助手。比如我用的原子大大这款。然后你要有一个usb转串口的小模块。淘宝一个就好。然后按照手册的教程一步一步的开始调试。首">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/17/STM32/esp8266-module/esp8266.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/17/STM32/esp8266-module/"/>
+
+
+
+
+
+  <title>esp8266wifi模块调试手册 | Deli_Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Deli_Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">--</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/17/STM32/esp8266-module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sundeli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Deli_Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">esp8266wifi模块调试手册</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-17T13:08:45+08:00">
+                2018-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/stm32/" itemprop="url" rel="index">
+                    <span itemprop="name">stm32</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/stm32/智能家居/" itemprop="url" rel="index">
+                    <span itemprop="name">智能家居</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h2 id="esp8266-wifi-usart模块测试"><a href="#esp8266-wifi-usart模块测试" class="headerlink" title="esp8266 wifi-usart模块测试"></a>esp8266 wifi-usart模块测试</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>从我的不愿意透露姓名的朱金宝师兄手中借到了了这个模块。  </p>
+<p><img src="/2018/03/17/STM32/esp8266-module/esp8266.jpg" alt="esp8266"></p>
+<p>等我有钱了我就买一个。QAQ。<br>然后我又去原子的官网下到了这个的资料。<br>感谢原子大大的无私付出。<a href="http://openedv.com/posts/list/62573.htm" target="_blank" rel="noopener">资料地址</a><br>模块的简单介绍可以去万能的淘宝。<a href="https://detail.tmall.com/item.htm?spm=a230r.1.14.308.4c9f53f8vMUWGy&amp;id=562846041806&amp;ns=1&amp;abbucket=14" target="_blank" rel="noopener">淘宝地址</a><br>接着你要有一个串口调试小助手。比如我用的原子大大这款。<br><img src="/2018/03/17/STM32/esp8266-module/atk_xcom.jpg" alt="esp8266"><br>然后你要有一个usb转串口的小模块。淘宝一个就好。<br><img src="/2018/03/17/STM32/esp8266-module/usart.jpg" alt="esp8266"><br>然后按照手册的教程一步一步的开始调试。<br>首先验证硬件连接的正确性。<br><img src="/2018/03/17/STM32/esp8266-module/xcom1.jpg" alt="esp8266"><br>能够正确的回读数据。说明硬件连接无误。然后正式开始进入调试。</p>
+<hr>
+<h3 id="First"><a href="#First" class="headerlink" title="First"></a>First</h3><p>看了一大堆指令，还是很冷静的看完了。推荐全部阅读一遍，这样以后用到一些功能的时候<br>比较容易找到相应的语句，节约后期开发的时间。<br>拿到模块首先素质三连。测试，重启，恢复出厂设置。  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">指令</th>
+<th style="text-align:center">指令说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">AT</td>
+<td style="text-align:center">测试指令</td>
+</tr>
+<tr>
+<td style="text-align:center">AT+RST</td>
+<td style="text-align:center">重启模块</td>
+</tr>
+<tr>
+<td style="text-align:center">AT+GMR</td>
+<td style="text-align:center">查看版本信息</td>
+</tr>
+<tr>
+<td style="text-align:center">ATE</td>
+<td style="text-align:center">开关回显功能</td>
+</tr>
+<tr>
+<td style="text-align:center">AT+RESTORE</td>
+<td style="text-align:center">恢复出厂设置</td>
+</tr>
+<tr>
+<td style="text-align:center">AT+UART</td>
+<td style="text-align:center">设置串口配置</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/2018/03/17/STM32/esp8266-module/xcom3.jpg" alt="esp8266"><br>测试结果如图。</p>
+<h3 id="Second"><a href="#Second" class="headerlink" title="Second"></a>Second</h3><p>连接一个路由器，并进行内网透传，建立主机。<br>选择了wifi模块的初衷就是在远离整套接收系统的时候能够对整套系统进行控制。因此显然<br>不能使这个模块工作在AP模式。而要连接到一个能够连接到互联网的节点上。<br>也不知道我的理解是否正确。欢迎大佬来教我如何实现。  </p>
+<h4 id="1-首先强迫症的AT一下。注意要加上换行和回车。"><a href="#1-首先强迫症的AT一下。注意要加上换行和回车。" class="headerlink" title="1. 首先强迫症的AT一下。注意要加上换行和回车。"></a>1. 首先强迫症的AT一下。注意要加上换行和回车。</h4><pre><code>AT
+</code></pre><blockquote>
+<p>返回值如下图<br><img src="/2018/03/17/STM32/esp8266-module/AT.jpg" alt="esp8266">  </p>
+</blockquote>
+<h4 id="2-设置wifi在sta模式，关于sta模式和ap模式。请参照百度知道"><a href="#2-设置wifi在sta模式，关于sta模式和ap模式。请参照百度知道" class="headerlink" title="2. 设置wifi在sta模式，关于sta模式和ap模式。请参照百度知道"></a>2. 设置wifi在sta模式，关于sta模式和ap模式。请参照<a href="https://zhidao.baidu.com/question/409510237.html" target="_blank" rel="noopener">百度知道</a></h4><pre><code>AT+CWMODE
+</code></pre><blockquote>
+<p>返回值如下图<br><img src="/2018/03/17/STM32/esp8266-module/ATVW.jpg" alt="esp8266"><br>此时表示你的wifi已经工作在sta模式辣。  </p>
+</blockquote>
+<h4 id="3-重启使得模式更改生效"><a href="#3-重启使得模式更改生效" class="headerlink" title="3. 重启使得模式更改生效"></a>3. 重启使得模式更改生效</h4><pre><code>AT+RST  
+</code></pre><blockquote>
+<p>返回值如下图<br><img src="/2018/03/17/STM32/esp8266-module/ATRST.jpg" alt="esp8266"><br>此时表示你的wifi已经工作在sta模式辣。  </p>
+</blockquote>
+<h4 id="4-连接wifi"><a href="#4-连接wifi" class="headerlink" title="4. 连接wifi"></a>4. 连接wifi</h4><pre><code>AT+CWJAP=”MRS114”,”woyebuzhidao114” //连接对象路由器的 ssid 和 password    
+</code></pre><p>返回值如下图   </p>
+<blockquote>
+<p><img src="/2018/03/17/STM32/esp8266-module/wifi.jpg" alt="esp8266"><br>此时表示已经成功的连接了你的wifi<br>对没错我们实验室的wifi就是这么的可怕。<br>密码是我们老大亲自设置的。刚来的时候我也很惊呆。。。。。。  </p>
+</blockquote>
+<h4 id="5-查询一下ip地址"><a href="#5-查询一下ip地址" class="headerlink" title="5. 查询一下ip地址"></a>5. 查询一下ip地址</h4><pre><code>AT+CIFSR    
+</code></pre><p>返回值如下图  </p>
+<blockquote>
+<p><img src="/2018/03/17/STM32/esp8266-module/ip.jpg" alt="esp8266"><br>其实这一个步骤并不是必须的，当你的内网中有多个从机连接到同一个服务主机的时候才需要根据不同的<br>ip地址来确定不同的从机标识。  </p>
+<hr>
+<h3 id="Third"><a href="#Third" class="headerlink" title="Third"></a>Third</h3></blockquote>
+<p>建立一个本地主机。因为要在手机端控制。所以我选择了利用我新买的红米note4x<br>搭建一个主机。运行内存3gb。其实大家应该都比我有钱的吧。博主哭晕在厕所。<br>软件本身长这个样子</p>
+<blockquote>
+<p><img src="/2018/03/17/STM32/esp8266-module/wlcs.jpg" alt="esp8266"><br>下载好软件之后，将你的手机和你的wifi模块连入同一个网络。然后建立一个主机。就会得到如下界面。<br><img src="/2018/03/17/STM32/esp8266-module/wlcsjm.jpg" alt="esp8266"><br>左边的窗口中显示了你主机的ip地址和你主机的端口号。由于大家一般是通过路由器上网的。通常情况下都是<br>动态分配ip地址的，为了以后在单片机上移植程序。我将自己手机处于这个网络下的ip地址改为静态。这样每<br>一次wifi模块就可以通过同样的配置命令连接到我的主机。</p>
+</blockquote>
+<h4 id="6-将配置好的wifi模块和你的手机相连。输入命令"><a href="#6-将配置好的wifi模块和你的手机相连。输入命令" class="headerlink" title="6. 将配置好的wifi模块和你的手机相连。输入命令"></a>6. 将配置好的wifi模块和你的手机相连。输入命令</h4><pre><code>AT+CIPSTART=&quot;TCP&quot;,&quot;192.168.1.110&quot;,8080
+</code></pre><blockquote>
+<p>返回值如下图<br><img src="/2018/03/17/STM32/esp8266-module/host.jpg" alt="esp8266"><br>此时表示已经成功的和主机建立了联系。<br>主机会显示已经连接的从机地址。如图。<br><img src="/2018/03/17/STM32/esp8266-module/connect.jpg" alt="esp8266">   </p>
+</blockquote>
+<h4 id="7-配置wifi模块进入透传模式"><a href="#7-配置wifi模块进入透传模式" class="headerlink" title="7. 配置wifi模块进入透传模式"></a>7. 配置wifi模块进入透传模式</h4><pre><code>AT+CIPMODE=1  
+</code></pre><p>返回值如下图  </p>
+<blockquote>
+<p><img src="/2018/03/17/STM32/esp8266-module/cip.jpg" alt="esp8266"><br>使用命令进入开始发送模式。<br>    AT+CIPSEND<br>主机会显示已经连接的从机地址。如图。<br><img src="/2018/03/17/STM32/esp8266-module/SEND.jpg" alt="esp8266"><br><strong>注意： 当出现这个界面以后你所有的命令都会作为互相通讯的内容在主机从机之间进行交换。<br>如果想重新配置wifi模块则需要退出发送模式。退出的方式是发送</strong><br>    +++<br><strong>注意：这条语句发送的时候不能够带有回车和换行命令，除以以外不管是命令还是数据交换都必须伴随回车换行结束。</strong><br>    0x0d，0x0a    </p>
+</blockquote>
+<h4 id="8-实际通讯的界面如下"><a href="#8-实际通讯的界面如下" class="headerlink" title="8. 实际通讯的界面如下"></a>8. 实际通讯的界面如下</h4><blockquote>
+<p><img src="/2018/03/17/STM32/esp8266-module/sdl.jpg" alt="esp8266"><br><img src="/2018/03/17/STM32/esp8266-module/hzn.jpg" alt="esp8266">  </p>
+</blockquote>
+<h4 id="9-写在最后"><a href="#9-写在最后" class="headerlink" title="9. 写在最后"></a>9. 写在最后</h4><blockquote>
+<p>到此为止，模块的调试结束，下一步将进行stm32单片机的程序编写，并验证校园网是否能利用openwrt固件利用路由器建立<br>主机进行内网透传。</p>
+</blockquote>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<ol>
+<li>一次点亮很激动。</li>
+<li>没了。</li>
+</ol>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/模块测试/" rel="tag"># 模块测试</a>
+          
+            <a href="/tags/stm32/" rel="tag"># stm32</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/14/blogtest/plugpic/" rel="next" title="在blog中插入图片">
+                <i class="fa fa-chevron-left"></i> 在blog中插入图片
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Sundeli</p>
+              <p class="site-description motion-element" itemprop="description">welcome to my blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#esp8266-wifi-usart模块测试"><span class="nav-number">1.</span> <span class="nav-text">esp8266 wifi-usart模块测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#First"><span class="nav-number">1.2.</span> <span class="nav-text">First</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Second"><span class="nav-number">1.3.</span> <span class="nav-text">Second</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-首先强迫症的AT一下。注意要加上换行和回车。"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 首先强迫症的AT一下。注意要加上换行和回车。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-设置wifi在sta模式，关于sta模式和ap模式。请参照百度知道"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 设置wifi在sta模式，关于sta模式和ap模式。请参照百度知道</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-重启使得模式更改生效"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 重启使得模式更改生效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-连接wifi"><span class="nav-number">1.3.4.</span> <span class="nav-text">4. 连接wifi</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-查询一下ip地址"><span class="nav-number">1.3.5.</span> <span class="nav-text">5. 查询一下ip地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Third"><span class="nav-number">1.4.</span> <span class="nav-text">Third</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-将配置好的wifi模块和你的手机相连。输入命令"><span class="nav-number">1.4.1.</span> <span class="nav-text">6. 将配置好的wifi模块和你的手机相连。输入命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-配置wifi模块进入透传模式"><span class="nav-number">1.4.2.</span> <span class="nav-text">7. 配置wifi模块进入透传模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-实际通讯的界面如下"><span class="nav-number">1.4.3.</span> <span class="nav-text">8. 实际通讯的界面如下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-写在最后"><span class="nav-number">1.4.4.</span> <span class="nav-text">9. 写在最后</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sundeli</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
