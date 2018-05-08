@@ -430,6 +430,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/27/hardware/omron/rotary-encoder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sundeli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Deli_Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/27/hardware/omron/rotary-encoder/" itemprop="url">欧姆龙旋转编码器硬件开发指南</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-27T20:32:48+08:00">
+                2018-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/硬件/" itemprop="url" rel="index">
+                    <span itemprop="name">硬件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/硬件/旋转编码器/" itemprop="url" rel="index">
+                    <span itemprop="name">旋转编码器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h2 id="欧姆龙E6B2-CWZ6C调试指南"><a href="#欧姆龙E6B2-CWZ6C调试指南" class="headerlink" title="欧姆龙E6B2_CWZ6C调试指南"></a>欧姆龙E6B2_CWZ6C调试指南</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>旋转编码器购入于淘宝。欧姆龙旋转编码器E6B2_CWZ6C</p>
+<p><img src="/2018/04/27/hardware/omron/rotary-encoder/2.jpg" alt="实物图"></p>
+<p>原装的编码器提供了详细的说明书<br>需要简单说明书的请参照<a href="https://wenku.baidu.com/view/0bf3d84d852458fb770b562f.html" target="_blank" rel="noopener">百度文库</a><br>这个旋转编码器的输出是一个NPN三级管，内部输出电路如下–&gt;&gt;<br><img src="/2018/04/27/hardware/omron/rotary-encoder/1.jpg" alt="电路图"><br>通过NPN晶体管的集电极输出的信号通常使用一个上拉电阻来输出指定的电平信号。</p>
+<hr>
+<h3 id="First"><a href="#First" class="headerlink" title="First"></a>First</h3><p>设计的初衷是使用这个模块来测量一个三相直流无刷电机的转速，编码器<br>的输出对象是一款接口电压为3.3v的单片机。为了保证安全使用了光耦进<br>行隔离。但是也由于选择了光耦出现了一些问题，最后还是抛弃了使用光<br>耦的方案，改在三极管的集电极直接接上拉电阻输出。原因在于<br><strong>待测电机转速为3000rpm、约50rps。使用的旋转编码器为1000线。</strong><br><strong>旋转编码器的输出为50k，但是光耦的开关频率较低，不能可靠地工作在50k</strong><br><strong>这个频率下，因此最后放弃了使用光电耦合器的方案，使用了三极管直接进行输出</strong></p>
+<h3 id="Second"><a href="#Second" class="headerlink" title="Second"></a>Second</h3><p>使用的单片机型号为stm32f103zet6，自带的定时器可以工作在编码器模式下。使用定时器4<br>统计脉冲数判断旋转的角度。配置TIM4上升沿下降沿均使能，因此旋转一周的脉冲计数为AB两相*线数*2<br>\=  </p>
+<pre><code>2*1000*2=4000
+</code></pre><p>电机转速为50rps，因此理论上每秒的计数值为  </p>
+<pre><code>4000*50=200k  
+</code></pre><p>定时器最大计数值为2^16=65536不满足计数要求<br>因此取定时间隔为0.01s理论脉冲数为2k。使用定时器3工作在中断模式。<br>每0.01s进入一次中断，判断tim4定时器的计数值，并同时清零计数器4<br>通过取得的脉冲数计算转速，计算公式为  </p>
+<pre><code>speed=n*100*60/4000;
+</code></pre><p>化简为  </p>
+<pre><code>speed=n*3/2;
+</code></pre><p>测得的转速再经过控制器进入调速系统供调速控制器使用。</p>
+<h3 id="Third"><a href="#Third" class="headerlink" title="Third"></a>Third</h3><p>工业上使用的编码器多不使用三级管输出，因为容易受到干扰。需要的传输线较多。因此<br>选用编码器时应该注意选型。此外，应该根据具体系统选用合适的编码器，本设计使用的电机转速较高。<br>要求的控制精度较低。可以选用线数更少的旋转编码器。但是，请买一个欧姆龙的。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<ol>
+<li>一次点亮很激动。</li>
+<li>没了。</li>
+</ol>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/17/STM32/esp8266-module/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2056,7 +2230,7 @@ y = 1./((2326*2326)*4*(pi^2).*x)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2067,7 +2241,7 @@ y = 1./((2326*2326)*4*(pi^2).*x)
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2078,7 +2252,7 @@ y = 1./((2326*2326)*4*(pi^2).*x)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
