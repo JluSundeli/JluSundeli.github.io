@@ -262,6 +262,184 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/FPGA/FPGA-hardware/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sundeli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Deli_Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/01/FPGA/FPGA-hardware/" itemprop="url">FPGA硬件设计tips</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-01T13:27:58+08:00">
+                2018-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/硬件设计/" itemprop="url" rel="index">
+                    <span itemprop="name">硬件设计</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/硬件设计/FPGA/" itemprop="url" rel="index">
+                    <span itemprop="name">FPGA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>##FPGA芯片本身特点</p>
+<h3 id="关于多时钟fpga系统中时序问题的解决"><a href="#关于多时钟fpga系统中时序问题的解决" class="headerlink" title="关于多时钟fpga系统中时序问题的解决"></a>关于多时钟fpga系统中时序问题的解决</h3><blockquote>
+<p><a href="https://blog.csdn.net/hustbin/article/details/16951689" target="_blank" rel="noopener">乒乓缓存</a></p>
+</blockquote>
+<p>只是书中提到的，其实在arm程序的编写中也有过使用，<br>例如pid控制器中，保存当前结果，在执行过本周期之后重新释放这个<br>变量使其又变成可写状态，只是无意的应用，具体的实现机制可以参照这篇博客。  </p>
+<p>###FPGA的控制器降低功耗的核心是降低内核运行电压。  </p>
+<p>这也许是目前市面上的主流单片机的电压标准越来越低的主要原因？<br>FPGA使用多电源供电，IO也可以配置在不同的电压格式下。</p>
+<p>###FPGA的部分引脚可以接收差分信号  </p>
+<p>或许可以直接用来做485之类的差分协议？或者直接作为adc的驱动信号？<br>或者光耦？我会在以后的使用中注意这个问题。  </p>
+<p>##PCB设计规范  </p>
+<p>###电源<br>电源设计很成熟，大致分为两种：</p>
+<blockquote>
+<p>第一种使用多个ldo进行稳压提供fpga的电源。<br>第二种使用成熟的电源管理芯片提供多种不同的电源。  </p>
+</blockquote>
+<p>个人的见解是，如果是用于开发使用的话，尽量使用前者，一旦损坏维护方便而且成本低。<br>用于成熟方案需要量产的时候，尤其是在对于体积有严格要求的场合使用第二种方案更合理。</p>
+<p>###电源滤波<br>FPGA近端的电源滤波不能省，每一组电源都应该配一个滤波电容。<br>我们称之去耦电容，用于提供高频电路中突然出现的功率峰。</p>
+<p>###时钟引脚<br>一般从全局时钟引脚引入复位和时钟，虽然从全局时钟引脚引入复位并不是必须的，但是这对系统<br>实时性有比较好的保证，也是比较常见的设计。</p>
+<p>###布线的小技巧<br>首先时钟线背面尽量不覆铜，时钟引脚尽可能短。时钟线尽量不与信号线平行，避免干扰。<br>JTAG四根信号线尽量等长，保持信号完整性。高频信号过孔位置添加电容滤波。足够小。<br>走线尽量不要走直角。5mil-200ma；50mil-1A注意布线宽度。</p>
+<p>##一种新的手工电路板加工工艺，氯化铁腐蚀工艺<br>看起来挺有意思的工艺，可以手工完成电路板的印制。</p>
+<h2 id="blog总结"><a href="#blog总结" class="headerlink" title="blog总结"></a>blog总结</h2><ol>
+<li><p>完善了FPGA布线上的一些以前没注意到的点。</p>
+</li>
+<li><p>下一步进行软件建立工程的相关配置。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/FPGA/FPGA-SOFTWARE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1977,270 +2155,6 @@ y = 1./((2326*2326)*4*(pi^2).*x)
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/blogtest/20180202blogtest/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sundeli">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Deli_Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/02/blogtest/20180202blogtest/" itemprop="url">blog_test</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T21:42:16+08:00">
-                2018-02-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/测试文件/" itemprop="url" rel="index">
-                    <span itemprop="name">测试文件</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/测试文件/建立博客测试/" itemprop="url" rel="index">
-                    <span itemprop="name">建立博客测试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>这是deli的第一个测试blog</p>
-</blockquote>
-<h1 id="deli的markdown入门实战（1）"><a href="#deli的markdown入门实战（1）" class="headerlink" title="deli的markdown入门实战（1）"></a>deli的markdown入门实战（1）</h1><hr>
-<p>#标题</p>
-<p>#deli</p>
-<p>##deli</p>
-<p>###deli</p>
-<p>####deli</p>
-<p>#####deli</p>
-<p>######deli</p>
-<p>#######deli<br>一级标题和二级标题前会有横线分割<br>。标题共有六级，所以你就算打七个#也没什么卵用。写惯了代码表示不能写注释太难过了。但是我知道各路大神一定有办法搞定的。<br>看着官方的学习笔记，我想知道怎么主动换行，期待下文能解答我的疑惑。</p>
-<p>#deli#</p>
-<p>##deli##<br>还可以这样写，此时行首的字符个数决定了标题的级别。请查看md代码吧。我还没学会如何插入代码框，Orz</p>
-<hr>
-<p>#区块引用 Blockquotes</p>
-<blockquote>
-<p>deli<br>deli<br>这有点像email中的引用写法，但是还是没学会怎么换行。TT</p>
-<blockquote>
-<p>似乎还可以进行二级的引用</p>
-<blockquote>
-<p>当然也可以三级</p>
-<p>##这是一个标题 可以在引用中使用标识符</p>
-<ol>
-<li>这是一个表</li>
-<li>这是一个表<br>注意在列表的创建时，要在.后面加上一个空格才是有效的列表<br>似乎还有类似于np++中的那种选中字符标定引用级别的操作。以后再开发吧。</li>
-</ol>
-</blockquote>
-</blockquote>
-</blockquote>
-<hr>
-<p>#列表</p>
-<p>##无序列表</p>
-<p>###使用*号</p>
-<ul>
-<li>deli1</li>
-<li>deli2</li>
-<li>deli3<br>###使用+号</li>
-</ul>
-<ul>
-<li>deli</li>
-<li>deli</li>
-<li>deli<br>###使用-号</li>
-</ul>
-<ul>
-<li>deli</li>
-<li>deli</li>
-<li>deli<blockquote>
-<p>这三者是等价的</p>
-</blockquote>
-</li>
-</ul>
-<p>##有序列表</p>
-<p>###使用数字加一个英文句点</p>
-<ol>
-<li>deli1</li>
-<li>deli2</li>
-<li>deli3<blockquote>
-<p>这个编辑器实在是太智能了，感谢智能宝宝。</p>
-</blockquote>
-</li>
-</ol>
-<p>##列表的缩进</p>
-<ul>
-<li><p>deli</p>
-<ul>
-<li>deli</li>
-<li>deli<ul>
-<li>deli<blockquote>
-<p>似乎只能缩进2级<br>这与官方给出的例子不太一样。 </p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>可以使用编排好的缩进格式来使你的排版看起来更加的整齐</p>
-</li>
-<li>可以使用四个空格或者一个制表符来分段比如</li>
-<li><p>delidelidelidelidelidelidelidelidelidelidelidelidelidelidelidelidelideli</p>
-<p>delidelidelidelidelidelidelidelidelidelidelidelidelidelidelideli<br>delidelidelidelidelidelidelidelijyuyuuuuuuuuuuuuuuuuuuuuuuuuuuudekudekudkeudkedkeud</p>
-<p>delidelidelideli</p>
-<blockquote>
-<p>表中的引用<br>引用怎么换行啊。。。。。</p>
-</blockquote>
-</li>
-</ul>
-<ul>
-<li><p>项目中有代码哎：</p>
-<p>  deli</p>
-<pre><code>deli
-</code></pre><p>  deku</p>
-<blockquote>
-<p>代码只能在普通段落中出现<br>不能出现在列表中</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<p>这是一个代码示例:</p>
-<pre><code>hello world
-    hello silly roe deer
-</code></pre><h2 id="分割线"><a href="#分割线" class="headerlink" title="##分割线"></a>##分割线</h2><hr>
-<hr>
-<hr>
-<hr>
-<p>#链接</p>
-<p><a href="https://jlusundeli.github.io/" target="_blank" rel="noopener">deli的blog</a><br><a href="https://www.baidu.com" target="_blank" rel="noopener">Baidu</a></p>
-<p><em>这句话被我强调了</em></p>
-<p>_这句话被我强调了_</p>
-<p><strong>这句话被我强奸了</strong></p>
-<p><strong>这句话也是</strong></p>
-<p><em>\</em>这句话被强奸了两遍**</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2291,7 +2205,7 @@ y = 1./((2326*2326)*4*(pi^2).*x)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2302,7 +2216,7 @@ y = 1./((2326*2326)*4*(pi^2).*x)
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2313,7 +2227,7 @@ y = 1./((2326*2326)*4*(pi^2).*x)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
