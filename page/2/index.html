@@ -262,6 +262,193 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/blogtest/plugpic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sundeli">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Deli_Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/14/blogtest/plugpic/" itemprop="url">在blog中插入图片</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T20:54:15+08:00">
+                2018-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试文件/" itemprop="url" rel="index">
+                    <span itemprop="name">测试文件</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/测试文件/建立博客测试/" itemprop="url" rel="index">
+                    <span itemprop="name">建立博客测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h2 id="如何在一片hexo的blog中插入图片"><a href="#如何在一片hexo的blog中插入图片" class="headerlink" title="如何在一片hexo的blog中插入图片"></a>如何在一片hexo的blog中插入图片</h2><p>我前几天学会了如何在一篇博客中插入一个图片。然后今天我又想写博客了。然后我就。<br>忘了。。。。。<br>忘了。。。。<br>忘了。。。<br>忘了。。<br>忘了。<br>算了反正想不起来了，我就重新温（bai）习（du）了一下。<br>然后看到了这个：<a href="https://www.jianshu.com/p/c2ba9533088a" target="_blank" rel="noopener">大佬指导</a><br>然后感谢<a href="http://blog.csdn.net/sugar_rainbow/article/details/57415705" target="_blank" rel="noopener">开车的兄弟</a><br>带我找到了大佬。orz。  </p>
+<p>然后我就开始瞎比操作。</p>
+<hr>
+<h2 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h2><ol>
+<li><p>把主页配置文件<strong>_config.yml</strong> 里的<strong>post_asset_folder:</strong> 这个选项设置为<strong>true</strong></p>
+</li>
+<li><p>在你的<strong>hexo</strong>目录下执行这样一句话<strong>npm install hexo-asset-image –save</strong>，这是下载安装一个可以上传本地图片的插件，来自<a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="noopener">GAYHUB</a></p>
+</li>
+<li><p>等待一小段时间后，再运行<strong>hexo n “xxxx”</strong>来生成md博文时，<strong>/source/_posts</strong> 文件夹内除了<strong>xxxx.md</strong>文件还有一个同名的文件夹</p>
+</li>
+</ol>
+<hr>
+<h2 id="然后"><a href="#然后" class="headerlink" title="然后"></a>然后</h2><ol>
+<li><p>最后在<strong>xxxx.md</strong>中想引入图片时，先把图片复制到<strong>xxxx</strong> 这个文件夹中，然后只需要在<strong>xxxx.md</strong> 中按照markdown的格式引入图片：  </p>
+<pre><code>![你想输入的替代文字](xxxx/图片名.jpg)
+</code></pre><p>注意： <strong>xxxx</strong> 是这个<strong>md</strong> 文件的名字，也是同名文件夹的名字。只需要有文件夹名字即可，不需要有什么绝对路径。你想引入的图片就只需要放入<strong>xxxx</strong>这个文件夹内就好了，很像引用相对路径。</p>
+</li>
+<li><p>最后检查一下，<strong>hexo g</strong> 生成页面后，进入<strong>public\2017\02\26\index.html</strong> 文件中查看相关字段，可以发现，html标签内的语句是<strong><img src="/2018/03/14/blogtest/plugpic/2017/02/26/xxxx/图片名.jpg"></strong>，而不是<strong>&lt;img src=”xxxx/图片名.jpg&gt;</strong>。这很重要，关乎你的网页是否可以真正加载你想插入的图片。</p>
+</li>
+</ol>
+<hr>
+<h2 id="blog总结"><a href="#blog总结" class="headerlink" title="blog总结"></a>blog总结</h2><ol>
+<li><p>温习了插入图片的方法</p>
+<blockquote>
+<p>也许这就是建立blog的意义所在吧，建立一个自己能够快速唤醒自己回忆的文章。</p>
+</blockquote>
+</li>
+<li><p>知道了如何插入代码段</p>
+<blockquote>
+<p>插入代码段，以及行间代码段。想看的话回来查看这个md文件吧。</p>
+</blockquote>
+</li>
+<li>我本来想写stm32的2333333</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/05/MRS/deli-pictest/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1462,7 +1649,7 @@ y = 1./((2326*2326)*4*(pi^2).*x)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
